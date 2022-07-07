@@ -27,6 +27,7 @@ const themeLight = {
 
 const Player = () => {
   const videos = JSON.parse(document.querySelector('[name="videos"]').value);
+  const savedState = JSON.parse(localStorage.getItem(`${videos.playlistId}`));
   // useParams() is a hook that returns the current URL parameters.
   // useLocation() is a hook that returns the current URL.
   // useNavigate() is a hook that returns a function that can be used to navigate to a new URL.
@@ -34,12 +35,17 @@ const Player = () => {
   const location = useLocation();
   const history = useNavigate();
   const [state, setState] = useState({
-    videos: videos.playlist,
-    activeVideo: videos.playlist[0],
-    nightMode: true,
-    playlistId: videos.playlistId,
-    autoplay: false,
+    videos: savedState ? savedState.videos : videos.playlist,
+    activeVideo: savedState ? savedState.activeVideo : videos.playlist[0],
+    nightMode: savedState ? savedState.nightMode : true,
+    playlistId: savedState ? savedState.playlistId : videos.playlistId,
+    autoplay: location.autoplay,
   });
+
+  useEffect(() => {
+    localStorage.setItem(`${state.playlistId}`, JSON.stringify({ ...state }));
+  }, [state]);
+
 
   useEffect(() => {
     const videoId = activeVideo;
