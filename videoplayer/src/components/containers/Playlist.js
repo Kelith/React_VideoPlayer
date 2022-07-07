@@ -1,13 +1,13 @@
 import React from 'react';
-import PlaylistHeader from '../components/PlaylistHeader';
-import PlaylistItems from '../components/PlaylistItems';
-import NightMode from '../components/NightMode';
+import PlaylistHeader from '../../components/PlaylistHeader';
+import PlaylistItems from './PlaylistItems';
+import Nightmode from '../../components/Nightmode';
 
 
 function Playlist() {
   return (
     <>
-        <NightMode />
+        <Nightmode />
         <PlaylistHeader />
         <PlaylistItems />
     </>

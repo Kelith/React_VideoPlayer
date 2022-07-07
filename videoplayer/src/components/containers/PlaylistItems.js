@@ -1,5 +1,5 @@
 import React from 'react';
-import PlaylistItem from '../components/PlaylistItems';
+import PlaylistItem from '../../components/PlaylistItem';
 
 
 function PlaylistItems() {
