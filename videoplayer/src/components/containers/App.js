@@ -7,8 +7,8 @@ import GloablStyle from '../styles/GlobalStyle';
 const App = () => (
   <BrowserRouter>
     <Routes>
-      <Route exact path="/" component={Player} />
-      <Route exact path="/:activeVideo" component={Player} />
+      <Route exact path="/" element={<Player/>} />
+      <Route exact path="/:activeVideo" element={<Player/>} />
     </Routes>
     <GloablStyle />
   </BrowserRouter>

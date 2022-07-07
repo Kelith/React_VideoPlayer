@@ -2,7 +2,7 @@ import React from 'react';
 import PlaylistItem from '../../components/PlaylistItem';
 import StyledPlaylistItems from '../styles/StyledPlaylistitems';
 
-function PlaylistItems({ videos, active }) {
+const PlaylistItems = ({ videos, active }) => {
   return (
     <StyledPlaylistItems>
         {videos.map((video, index) => (
