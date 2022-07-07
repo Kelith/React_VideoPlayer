@@ -1,5 +1,5 @@
 import React from 'react'
-import StyledNightmode from '../styles/StyledNightmode'
+import StyledNightmode from './styles/StyledNightmode'
 
 const Nightmode = ({nightMode, nightModeCallback}) => {
   return (

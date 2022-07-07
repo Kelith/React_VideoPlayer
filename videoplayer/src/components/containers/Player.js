@@ -25,12 +25,39 @@ const theme = {
   };
 
 function Player() {
+
+    const nightModeCallback = () => {
+        console.log('nightModeCallback');
+    }
+
+    const endCallback = () => {
+        console.log('endCallback');
+    }
+
+    const progressCallback = () => {
+        console.log('progressCallback');
+    }
+
+
   return (
     <ThemeProvider theme={state.nightMode ? theme : themeLight}>
+        {state.videos !== null ? (
         <StyledPlayer>
-            <Video />
-            <Playlist />
+            <Video 
+                active={state.active}
+                autoplay={state.autoplay}
+                endCallback={endCallback}
+                progressCallback={progressCallback}
+            />
+            <Playlist
+                videos={state.videos}
+                active={state.activeVideo}
+                nightModeCallback={nightModeCallback}
+                nightMode={state.nightMode}
+            />
         </StyledPlayer>
+        ) : null
+        }
     </ThemeProvider>
   )
 }
