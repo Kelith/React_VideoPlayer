@@ -3,7 +3,7 @@ import Video from "../../components/Video";
 import Playlist from "../containers/Playlist";
 import { ThemeProvider } from "styled-components";
 import StyledPlayer from "../styles/StyledPlayer";
-import {useParams,useLocation,useNavigate,} from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 
 const theme = {
   bgcolor: "#353535",
@@ -44,11 +44,13 @@ const Player = () => {
   useEffect(() => {
     const videoId = activeVideo;
     if (videoId !== undefined) {
-      const activeVideo = state.videos.findIndex((video) => video.id === videoId);
+      const activeVideoIndex = state.videos.findIndex(
+        (video) => video.id === videoId
+      );
       setState((prev) => {
         return {
           ...prev,
-          activeVideo: prev.videos[activeVideo],
+          activeVideo: prev.videos[activeVideoIndex],
           autoplay: location.autoplay,
         };
       });
@@ -61,15 +63,53 @@ const Player = () => {
   }, [activeVideo, location, history, state.videos, state.activeVideo]);
 
   const nightModeCallback = () => {
-    console.log("nightModeCallback");
+    setState((prev) => {
+      return {
+        ...prev,
+        nightMode: !prev.nightMode,
+      };
+    });
   };
 
   const endCallback = () => {
-    console.log("endCallback");
+    console.log("e che sfaccimm")
+    const videoId = activeVideo;
+    const currentVideoIndex = state.videos.findIndex(
+      (video) => video.id === videoId
+    );
+    const nextVideo =
+      currentVideoIndex === state.videos.length - 1 ? 0 : currentVideoIndex + 1;
+
+    // setState((prev) => {
+    //     return {
+    //         ...prev,
+    //         activeVideo: prev.videos[nextVideo],
+    //         autoplay: false,
+    //     };
+    // }
+    // );
+
+    history({
+      pathname: `/${state.videos[nextVideo].id}`,
+      autoplay: true,
+    });
   };
 
-  const progressCallback = () => {
-    console.log("progressCallback");
+  const progressCallback = (e) => {
+    if (e.playedSeconds > 10 && e.playedSeconds < 11) {
+        console.log("wenwien")
+      setState({
+        ...state,
+        videos: state.videos.map((video) => {
+          return video.id === state.activeVideo.id
+            ? {
+                ...video,
+                played: true,
+              }
+            : video;
+        }),
+      });
+    }
   };
 
   return (
